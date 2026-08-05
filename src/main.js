@@ -1,6 +1,9 @@
 const API_KEY = import.meta.env.VITE_NASA_API_KEY;
 
-document.querySelector("#app").innerHTML = '<h1>Loading... ⏳</h1>';
+document.querySelector("#app").innerHTML = `
+    <div id="loading-text" >
+        <h1>✦✦✦ Loading the Astronomy Picture of the Day ✦✦✦</h1>
+    </div>`;
 
 fetch(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`)
     .then(api_response => api_response.json())
@@ -8,7 +11,7 @@ fetch(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`)
         let media; // will contain the element which is going to display the APOD: <image>;<video>;<iframe>
 
         if (APOD.media_type === 'image') {
-            media = `<image src="${APOD.url}"/>`;
+            media = `<image src="${APOD.url}" style="width: 600px; height: auto;"/>`;
         }
 
         else {
@@ -24,9 +27,19 @@ fetch(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`)
         document.querySelector("#app").innerHTML = `
         <h1>${APOD.title}</h1>
         ${media}
-        <p>${APOD.explanation}</p>`;
+        <div id="explanation" >
+            <p>${APOD.explanation}</p>
+        </div>
+        `;
     })
     .catch(err => { //catch any error in executing this statement and display it on screen
         document.querySelector("#app").innerHTML = `Error: ${err.message}`;
     })
+
+
+
+    
+
+    
+
 
