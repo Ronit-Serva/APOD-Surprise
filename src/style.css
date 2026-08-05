@@ -40,14 +40,14 @@ p {
     
 }
 
-#loading-text {
+.loading-text {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
 }
 #explanation {
-    width: 80%;       /* Works with any width value (px, %, rem, max-width) */
+    width: 70%;       /* Works with any width value (px, %, rem, max-width) */
     margin-left: auto;
     margin-right: auto; /* Shorthand: margin: 0 auto; */
     line-height: 30px;
@@ -63,4 +63,4 @@ h1 {
     font-style: italic;
     }
 
-
+/* Styling the DOB entering form */
