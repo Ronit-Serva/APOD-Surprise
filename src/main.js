@@ -9,19 +9,20 @@ fetch(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`)
     .then(api_response => api_response.json())
     .then(APOD => {
         
-        // dynamically create the media element to display APOD based on it being video/img/UTube URL. 
+        // dynamically create the media element to display APOD based on it being video/img/YouTube URL. 
         let media_element;
-        media_element = apod_media(APOD)
+        media_element = apod_media(APOD);
 
         // DOB entering form for the user.
-        let DOB_FORM;
+        
 
-        DOB_FORM = `
+        /*let DOB_FORM = `
         <form id="dob-form" >
             <input type="date" id="datepicker">
             <button type="submit" id="dob-submit">Let's travel back...</button>
         </form>
-        `;
+        `;*/
+        let time_travel_button = `<button type="button" id="time-travel"><h2>Let's Time Travel...</h2></button>`
 
         // display the title, media, and explanation of APOD on the website by adding them to the index.html
         document.querySelector("#app").innerHTML = `
@@ -30,34 +31,42 @@ fetch(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`)
         <div id="explanation" >
             <p>${APOD.explanation}</p>
         </div>
-        ${DOB_FORM}
+        ${time_travel_button}
+        <dialog id="form-dailog">
+            <div id="form-container">
+                <form id="dob-form">
+                <p id="form-title">Enter your birthdate here, and we'll take you back in time...</p>
+                <input type="date" id="date-picker">
+                <button id="submit-btn" type="submit">Take Me Back</button>
+            </form>
+            </div>
+        </dialog>
         `;
     })
-    .then(_ => {
-        // Logic for DOB specific APOD display
-        const dob_form_submit = document.getElementById("dob-submit")
-        const dob_input = document.getElementById("datepicker")
+    .then( _ => {
+        const form_btn = document.getElementById("time-travel");
+        const form_modal = document.getElementById("form-dailog");
+        const dob_form = document.getElementById("dob-form");
+        const dob_input = document.getElementById("date-picker");
 
-        dob_form_submit.addEventListener("click", function(event) {
 
-            //prevent submitting the form from reloading the website
-            event.preventDefault();
+        form_btn.addEventListener('click', __ => {
+            form_modal.showModal();
+            dob_form.addEventListener('submit', event => {
+                //prevent default page reload behaviour of form submit
+                event.preventDefault();
 
-            // get the value of the dob_input field
-            const dob = dob_input.value;
-
-            //print DOB value on console
-            console.log(dob);
-
-            //fetch and display the APOD for the date of birth collected
-            display_apod_dob(dob);
+                const dob = dob_input.value;
+                
+                display_apod_dob(dob);
+            })
         })
     })
     .catch(err => { //catch any error in executing this statement and display it on screen
         document.querySelector("#app").innerHTML = `Error: ${err.message}`;
     })
 
-    // function to fetch and display APOD data on the website along with a custom loading page. 
+// function to fetch and display DOB specific APOD on the website along with a custom loading page. 
 function display_apod_dob(date_of_birth) {
 
     //display a loading text while data is being fetched
@@ -111,15 +120,19 @@ function apod_media (APOD) {
 
 
 
+// Step1: You add a button on your website with the specific text you want when the APOD loads.
+// Step2: Listen for the event of click on that button, and when the button is clicked open a dialog displaying the form with a submit button; with some title text, a text field to enter their DOB and 
+// When the form is submitted you collect and validate the user input DOB, and if valid proceed with the appropriate event logic. 
+
+
+
+
 
 
 // first you listen for the event of the form
 // second: When that happens you check the value of the input field, and if it's valid then you proceed 
 // you collect the DOB and call the fetch APOD_date function in order to fetch the APOD of a specific date; in the meantime you display a custom loading page. 
 // you display the APOD for the specific day
-
-
-    
 
 
 
