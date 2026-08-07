@@ -7,7 +7,7 @@ I built this project as a part of the stardance program using their guide, but a
 
 This is a vite project and uses HTML, CSS and JS. 
 
-**Experience the website here: [Website Link](https://ronit-serva.github.io/APOD-surprise)**
+**Experience the website here: [Website Link](https://ronit-serva.github.io/APOD-Surprise/)**
 
 **PS;** *The twist is that you can view NASA's APOD from the day you were born be sharing your birthdate.*
 
